@@ -21,7 +21,7 @@ class Alias implements Statement
         return sprintf(
             isQuery($this->statement) ? '(%s) AS %s' : '%s AS %s',
             $this->statement->sql($identifier),
-            $this->alias
+            isIdentifier($identifier) ? $identifier->escapeQualified($this->alias) : $this->alias
         );
     }
 
