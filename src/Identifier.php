@@ -55,7 +55,7 @@ class Identifier
      */
     public function escapeQualified($identifier): string
     {
-        if ($this->isStatement($identifier)) {
+        if (isStatement($identifier)) {
             return $identifier->sql($this);
         }
 
@@ -72,7 +72,7 @@ class Identifier
      */
     public function escapeAlias($alias): string
     {
-        if ($this->isStatement($alias)) {
+        if (isStatement($alias)) {
             return $alias->sql($this);
         }
 
@@ -99,7 +99,7 @@ class Identifier
     /**
      * Escape a list of identifier aliases.
      */
-    public function  allAliases(array $aliases): array
+    public function allAliases(array $aliases): array
     {
         return \array_map([$this, 'escapeAlias'], $aliases);
     }
@@ -127,14 +127,6 @@ class Identifier
     protected function surround(string $identifier): string
     {
         return $identifier;
-    }
-
-    /**
-     * Check if the identifier is an identifier statement.
-     */
-    final protected function isStatement($identifier): bool
-    {
-        return \is_object($identifier) && $identifier instanceof Statement;
     }
 
     /**
