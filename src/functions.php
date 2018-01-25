@@ -8,11 +8,6 @@ function isQuery($value): bool
     return $value instanceof Query;
 }
 
-function isIdentifier($value): bool
-{
-    return $value instanceof Identifier;
-}
-
 function isStatement($value): bool
 {
     return $value instanceof Statement;

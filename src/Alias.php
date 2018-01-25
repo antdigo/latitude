@@ -5,6 +5,8 @@ namespace Latitude\QueryBuilder;
 
 class Alias implements Statement
 {
+    use Traits\CanUseDefaultIdentifier;
+
     /**
      * Create a new alias.
      *
@@ -18,10 +20,12 @@ class Alias implements Statement
     // Statement
     public function sql(Identifier $identifier = null): string
     {
+        $identifier = $this->getDefaultIdentifier($identifier);
+
         return sprintf(
             isQuery($this->statement) ? '(%s) AS %s' : '%s AS %s',
             $this->statement->sql($identifier),
-            isIdentifier($identifier) ? $identifier->escapeQualified($this->alias) : $this->alias
+            $identifier->escapeQualified($this->alias)
         );
     }
 
