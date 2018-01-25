@@ -55,7 +55,7 @@ class Identifier
      */
     public function escapeQualified($identifier): string
     {
-        if ($this->isExpression($identifier)) {
+        if ($this->isStatement($identifier)) {
             return $identifier->sql($this);
         }
 
@@ -72,7 +72,7 @@ class Identifier
      */
     public function escapeAlias($alias): string
     {
-        if ($this->isExpression($alias)) {
+        if ($this->isStatement($alias)) {
             return $alias->sql($this);
         }
 
@@ -99,7 +99,7 @@ class Identifier
     /**
      * Escape a list of identifier aliases.
      */
-    public function allAliases(array $aliases): array
+    public function  allAliases(array $aliases): array
     {
         return \array_map([$this, 'escapeAlias'], $aliases);
     }
@@ -130,11 +130,11 @@ class Identifier
     }
 
     /**
-     * Check if the identifier is an identifier expression.
+     * Check if the identifier is an identifier statement.
      */
-    final protected function isExpression($identifier): bool
+    final protected function isStatement($identifier): bool
     {
-        return \is_object($identifier) && $identifier instanceof Expression;
+        return \is_object($identifier) && $identifier instanceof Statement;
     }
 
     /**
